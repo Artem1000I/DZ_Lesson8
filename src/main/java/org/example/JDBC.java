@@ -9,6 +9,7 @@ public class JDBC {
         //load JDBC driver
         try{
             Class.forName("org.sqlite.JDBC");
+
         }catch (ClassNotFoundException e){
             e.printStackTrace();
         }

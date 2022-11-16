@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class DataBaseRepository {
     private String insertWeather = "insert into weather (city, localdate, temperature) values (?, ?, ?)";
     private String getWeather = "select * from weather";

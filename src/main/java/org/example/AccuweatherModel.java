@@ -29,6 +29,7 @@ public class AccuweatherModel implements WeatherModel {
 
     private DataBaseRepository dataBaseRepository = new DataBaseRepository();
 
+
     public void getWeather(String selectedCity, Period period) throws IOException {
         switch (period) {
             case NOW:

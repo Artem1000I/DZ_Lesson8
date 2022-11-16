@@ -11,6 +11,7 @@ public class UserInterfaceView {
 
         while (true) {
             System.out.println("Введите имя города: ");
+
             String city = scanner.nextLine();
 
             System.out.println("Введите 1 для получения погоды на сегодня;" +

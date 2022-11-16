@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Controller {
+
     private WeatherModel weatherModel = new AccuweatherModel();
     private Map<Integer, Period> variants = new HashMap<>();
 
