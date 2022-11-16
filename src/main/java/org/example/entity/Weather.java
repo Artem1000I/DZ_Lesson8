@@ -35,6 +35,7 @@ public class Weather {
         this.temperature = temperature;
     }
     @Override
+
     public String toString() {
         return "Weather{" +
                 "city='" + city + '\'' +
