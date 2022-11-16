@@ -46,7 +46,6 @@ public class AccuweatherModel implements WeatherModel {
                 Request request = new Request.Builder()
                         .url(httpUrl)
                         .build();
-
                 Response oneDayForecastResponse = okHttpClient.newCall(request).execute();
                 String weatherResponse = oneDayForecastResponse.body().string();
                 System.out.println(weatherResponse);

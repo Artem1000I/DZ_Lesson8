@@ -26,7 +26,6 @@ public class DataBaseRepository {
             e.printStackTrace();
         }
     }
-
     public boolean saveWeatherToDataBase(Weather weather) throws SQLException {
         try (Connection connection = DriverManager.getConnection(DB_PATH)) {
             PreparedStatement saveWeather = connection.prepareStatement(insertWeather);

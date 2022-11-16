@@ -2,9 +2,8 @@ package org.example;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Demo {
+public class JDBC {
     public static void main(String[] args)throws SQLException {
 
         //load JDBC driver
@@ -20,9 +19,9 @@ public class Demo {
     }
     //Для хранения скомпилированных запросов
     private static void performPreparedStatement (Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO student(name,score) VALUES(?,?)")) {//запрос с неопределёнными переменными
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO weather(city,localDate,temperature) VALUES(?,?,?)")) {//запрос с неопределёнными переменными
             for (int i = 1; i < 10; i++) {
-                preparedStatement.setString(1, "ВАСЯ" + i); //Вызываем запрос и заменяем прееменные к 1 переменной
+                preparedStatement.setString(1, "Moscow" + i); //Вызываем запрос и заменяем прееменные к 1 переменной
                 preparedStatement.setInt(2, i); // Обращаемся ко 2 переменной
                 preparedStatement.addBatch();
             }
@@ -31,13 +30,13 @@ public class Demo {
     }
     //Удаление записей
     private static void performDeleteRows (Statement statement)throws SQLException {
-        statement.executeUpdate("DELETE FROM students WHERE id>9000");
+        statement.executeUpdate("DELETE FROM weatherForecast WHERE id>200");
     }
     //Обновление записей
     private static void performUpdateDB (Statement statement) throws SQLException {
-        performUpdateStudents("UPDATE students SET score = 0 WHERE id > 100", statement);
+        performUpdateWeather("UPDATE weatherForecast SET score = +78 WHERE id == 100", statement);
     }
-    private static void performUpdateStudents (String s, Statement statement)throws SQLException {
+    private static void performUpdateWeather (String s, Statement statement)throws SQLException {
         statement.executeUpdate(s);
     }
     //Чтобы в таьлице появились записи
@@ -46,7 +45,7 @@ public class Demo {
         connection.setAutoCommit(false);//Запрещаем автоматические коммиты.
         for (int i = 1; i < 10_000; i++) {
             statement.executeUpdate(
-                    "INSERT INTO students(name,score)VALUES ('student" + i + "'," + i + ");"
+                    "INSERT INTO weatherForecast(city,localDate,temperature)VALUES ('weather" + i + "'," + i + ");"
             );
 
         }
@@ -60,36 +59,46 @@ public class Demo {
 
     //Создаем таблицу если она не существует и создаём структуру таблицы
     private static void  performCreateDB(Statement statement)throws SQLException{
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS students(id INTEGER PRIMARY KEY AUTOINCREMENT,"+ //Говори что есть id типа INTEGER
-                "name STRING,score INTEGER NOT NULL);"); // Поле name ТИПа string и поле score типа INTEGER и не может быть нулём NOT NULL
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS weatherForecast(id INTEGER PRIMARY KEY AUTOINCREMENT,"+ //Говори что есть id типа INTEGER
+                "city STRING,localDate INTEGER,temperature INTEGER NOT NULL);"); // Поле name ТИПа string и поле score типа INTEGER и не может быть нулём NOT NULL
     }
 
     //Чтение данных
             private static void readStudentsFromDB (Statement statement)trows SQLException {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM students");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM weatherForecast");
 
                 ArrayList<MyClass> arrayList = new ArrayList<>();
                 while (resultSet.next()) {
                     System.out.println(
                             resultSet.getInt(1) + " - " +
-                                    resultSet.getString(2) + " - " +
-                                    resultSet.getDouble("score") + " - "
+                                    resultSet.getString("city") + " - " +
+                                    resultSet.getInt("localDate") + " - "+
+                                    resultSet.getInt("temperature") + " - "
+
+
                     );
                     //Ручная дессеарилизация список заначений из базы SQL
-                    arrayList.add(new MyClass(resultSet.getInt(1), resultSet.getString(2), resultSet.getDouble("score")));
+                    arrayList.add(new MyClass(resultSet.getInt(1), resultSet.getString("city"), resultSet.getInt("localDate"),resultSet.getInt("temperature")));
                 }
                 System.out.println("");
             }
             public static class MyClass {
                 private Integer id;
-                private String name;
-                private Double score;
+                private String city;
+                private Integer localDate;
+                private Integer temperature;
+
+
+                private
 
                 public MyClass(Integer id, String name, Double score) {
                     this.id = id;
-                    this.name = name;
-                    this.score = score;
+                    this.city = city;
+                    this.localDate = localDate;
+                    this.temperature=temperature;
                 }
             }
         }
-
+//city
+//localDate
+//temperature

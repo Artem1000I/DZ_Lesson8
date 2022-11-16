@@ -30,7 +30,7 @@ public class ExampleMain {
                 .addQueryParametr("metric","true")
                 .build();
 
-        System.out.println(url.toString());
+       System.out.println(url.toString());
 
         //При необходимости указать заголовки
         Request requesthttp = new Request.Builder()

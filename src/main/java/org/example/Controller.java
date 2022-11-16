@@ -16,7 +16,6 @@ public class Controller {
 
     public void getWeather(String userInput, String selectedCity) throws IOException {
         Integer userIntegerInput = Integer.parseInt(userInput);
-
         switch (variants.get(userIntegerInput)) {
             case NOW:
                 weatherModel.getWeather(selectedCity, Period.NOW);
